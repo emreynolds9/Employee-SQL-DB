@@ -1,0 +1,71 @@
+--------SCHEMA-----------
+--CREATE EMPLOYEES TABLE
+select * from employees;
+CREATE TABLE "employees" (
+    "emp_no" integer   NOT NULL primary key,
+    "birth_date" varchar   NOT NULL,
+    "first_name" varchar   NOT NULL,
+    "last_name" varchar   NOT NULL,
+    "gender" varchar   NOT NULL,
+    "hire_date" varchar   NOT NULL);
+	
+--CREATE DEPARTMENTS TABLE
+select * from departments;
+CREATE TABLE "departments" (
+    "dept_no" varchar   NOT NULL primary key,
+    "dept_name" varchar   NOT NULL);
+	
+--CREATE DEPT_EMP TABLE
+select * from dept_emp;
+drop table dept_emp;
+CREATE TABLE dept_emp(
+    emp_no integer NOT NULL,
+    dept_no varchar NOT NULL,
+    from_date date NOT NULL,
+    to_date date NOT NULL,
+	foreign key (emp_no) references employees(emp_no),
+	foreign key (dept_no) references departments(dept_no));
+	
+--CREATE PRIMARY KEY FOR DEPT_EMP
+ALTER TABLE dept_emp
+ADD dept_emp_id SERIAL primary key;
+
+--CREATE DEPT_MANAGER
+CREATE TABLE "dept_manager" (
+    "dept_no" varchar   NOT NULL,
+    "emp_no" integer   NOT NULL,
+    "from_date" date   NOT NULL,
+    "to_date" date   NOT NULL,
+	foreign key (emp_no) references employees(emp_no),
+	foreign key (dept_no) references departments(dept_no));
+--CREATE PRIMARY KEY FOR DEPT_MANAGER
+ALTER TABLE dept_manager
+ADD dept_manager_id SERIAL primary key;
+
+select * from dept_manager;
+
+--CREATE SALARIES TABLE
+CREATE TABLE "salaries" (
+    "emp_no" integer   NOT NULL,
+    "salary" integer   NOT NULL,
+    "from_date" date   NOT NULL,
+    "to_date" date   NOT NULL,
+    foreign key (emp_no) references employees(emp_no));
+--CREATE PRIMARY KEY FOR SALARIES
+ALTER TABLE salaries
+ADD salary_id SERIAL primary key;
+
+select * from salaries;
+
+--CREATE TITLES TABLE
+CREATE TABLE "titles" (
+    "emp_no" integer   NOT NULL,
+    "title" varchar   NOT NULL,
+    "from_date" date   NOT NULL,
+    "to_date" date   NOT NULL,
+    foreign key (emp_no) references employees(emp_no));
+--CREATE PRIMARY KEY FOR TITLES
+ALTER TABLE titles
+ADD titles SERIAL primary key;
+
+select * from titles;
